@@ -58,7 +58,7 @@ def find_clue(clues, new_clue):
         print(f"You discovered a new clue: {new_clue}")
     return clues
 
-def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
+def enter_dungeon(player_stats, inventory, dungeon_rooms, clues, artifacts):
     """Handles the player's exploration of the dungeon."""
     for room_name, _, challenge_type, _ in dungeon_rooms:
         print(f"\nYou entered: {room_name}")
@@ -109,7 +109,7 @@ def main():
                 player_stats, artifacts = discover_artifact(player_stats, artifacts, artifact_name)
                 display_player_status(player_stats)
         if player_stats['health'] > 0:
-            player_stats, inventory, clues = enter_dungeon(player_stats, inventory, dungeon_rooms, clues)
+            player_stats, inventory, clues = enter_dungeon(player_stats, inventory, dungeon_rooms, clues, artifacts)
             print("\n--- Game End ---")
             display_player_status(player_stats)
             print("Final Inventory:")
