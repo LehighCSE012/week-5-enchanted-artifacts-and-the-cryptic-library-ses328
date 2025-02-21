@@ -38,7 +38,7 @@ def check_for_treasure(has_treasure):
 def discover_artifact(player_stats, artifacts, artifact_name):
     """Handles the discovery of an artifact."""
     if artifact_name in artifacts:
-        artifact = artifacts.pop(artifact_name)  # Remove found artifact from dictionary
+        artifact = artifacts.pop(artifact_name)
         print(f"You found {artifact_name}: {artifact['description']}")
         if artifact['effect'] == "increases health":
             player_stats['health'] += artifact['power']
@@ -60,8 +60,7 @@ def find_clue(clues, new_clue):
 
 def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
     """Handles the player's exploration of the dungeon."""
-    for room in dungeon_rooms:
-        room_name, _, challenge_type, _ = room  # Unused variables removed
+    for room_name, _, challenge_type, _ in dungeon_rooms:
         print(f"\nYou entered: {room_name}")
         if challenge_type == "library":
             print("A vast library filled with ancient, cryptic texts.")
