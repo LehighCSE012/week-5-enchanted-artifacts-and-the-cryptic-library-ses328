@@ -1,19 +1,22 @@
 import random
 
 def display_player_status(player_stats):
+    """Displays the player's current health and attack."""
     print(f"\nPlayer Stats: Health = {player_stats['health']}, Attack = {player_stats['attack']}")
 
 def display_inventory(inventory):
+    """Displays the player's inventory."""
     if inventory:
         print("Inventory:", ", ".join(inventory))
     else:
         print("Inventory is empty.")
 
 def handle_path_choice(player_stats):
-    # Placeholder for handling player's choice in the game
+    """Handles player's choice when selecting a path."""
     return player_stats
 
 def combat_encounter(player_stats, monster_health, has_treasure):
+    """Handles combat between the player and a monster."""
     while monster_health > 0 and player_stats['health'] > 0:
         print("You attack the monster!")
         monster_health -= player_stats['attack']
@@ -26,36 +29,39 @@ def combat_encounter(player_stats, monster_health, has_treasure):
     return None
 
 def check_for_treasure(has_treasure):
+    """Checks if the player has obtained treasure."""
     if has_treasure:
         print("You found a treasure chest!")
     else:
         print("No treasure here.")
 
 def discover_artifact(player_stats, artifacts, artifact_name):
+    """Handles the discovery of an artifact."""
     if artifact_name in artifacts:
-        artifact = artifacts[artifact_name]
+        artifact = artifacts.pop(artifact_name)  # Remove found artifact from dictionary
         print(f"You found {artifact_name}: {artifact['description']}")
         if artifact['effect'] == "increases health":
             player_stats['health'] += artifact['power']
         elif artifact['effect'] == "enhances attack":
             player_stats['attack'] += artifact['power']
         print(f"Effect: {artifact['effect']} (+{artifact['power']})")
-        del artifacts[artifact_name]  # Remove found artifact from dictionary
     else:
         print("You found nothing of interest.")
     return player_stats, artifacts
 
 def find_clue(clues, new_clue):
+    """Handles the discovery of a clue."""
     if new_clue in clues:
         print("You already know this clue.")
     else:
-        clues.add(new_clue)  # Using set add() method
+        clues.add(new_clue)
         print(f"You discovered a new clue: {new_clue}")
     return clues
 
 def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
+    """Handles the player's exploration of the dungeon."""
     for room in dungeon_rooms:
-        room_name, item, challenge_type, challenge_outcome = room
+        room_name, _, challenge_type, _ = room  # Unused variables removed
         print(f"\nYou entered: {room_name}")
         if challenge_type == "library":
             print("A vast library filled with ancient, cryptic texts.")
@@ -73,6 +79,7 @@ def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
     return player_stats, inventory, clues
 
 def main():
+    """Main game loop."""
     dungeon_rooms = [
         ("Dusty library", "key", "puzzle", ("Solved puzzle!", "Puzzle unsolved.", -5)),
         ("Narrow passage, creaky floor", "torch", "trap", ("Avoided trap!", "Triggered trap!", -10)),
@@ -117,4 +124,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Your code goes here
