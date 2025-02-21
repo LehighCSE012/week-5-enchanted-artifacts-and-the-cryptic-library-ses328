@@ -11,6 +11,12 @@ def display_inventory(inventory):
     else:
         print("Inventory is empty.")
 
+def acquire_item(inventory, item):
+    """Adds an item to the player's inventory."""
+    if item:
+        inventory.append(item)
+        print(f"You acquired: {item}")
+
 def handle_path_choice(player_stats):
     """Handles player's choice when selecting a path."""
     return player_stats
@@ -60,8 +66,9 @@ def find_clue(clues, new_clue):
 
 def enter_dungeon(player_stats, inventory, dungeon_rooms, clues):
     """Handles the player's exploration of the dungeon."""
-    for room_name, _, challenge_type, _ in dungeon_rooms:
+    for room_name, item, challenge_type, _ in dungeon_rooms:
         print(f"\nYou entered: {room_name}")
+        acquire_item(inventory, item)
         if challenge_type == "library":
             print("A vast library filled with ancient, cryptic texts.")
             possible_clues = [
